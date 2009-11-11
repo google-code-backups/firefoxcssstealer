@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xul-overlay href="chrome://css_stealer/content/css_stealer.xul"?>
+<?xml-stylesheet href="chrome://css_stealer/skin/css_stealer.css" type="text/css"?>
+<!DOCTYPE overlay>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://css_stealer/content/stealer.js"/>
+
+	<!-- Firefox Tools menu -->
+    <menupopup id="menu_ToolsPopup">
+        <menuitem id="css_stealer" label="CSS Stealer"
+		insertbefore="javascriptConsole" oncommand="clickStealer();">
+        </menuitem>
+    </menupopup>
+</overlay>
