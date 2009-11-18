@@ -1,4 +1,4 @@
-#This is the approximate API of the COM component
+#summary This is the approximate API of the COM component
 
 This is the approximate API of the COM component. All methods return true/false, which indicates if there was an error.
 
