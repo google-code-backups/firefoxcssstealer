@@ -1,45 +1,43 @@
 This is the approximate API of the COM component. All methods return true/false, which indicates if there was an error.
 
-_CSS Stealer Functionality_
+==CSS Stealer Functionality==
 
 
-getCSS(in htmlDoc, out elementsArray, out classesArray, out idsArray)
+_getCSS(in htmlDoc, out elementsArray, out classesArray, out idsArray)_
 
 Takes the current HTML document and returns three arrays of different types of CSS items (elements, classes and ids). The returned arrays might be empty.
 
-saveCSS(in elementsArray, in classesArray, in idsArray)
+_saveCSS(in elementsArray, in classesArray, in idsArray)_
 
 Takes three arrays of the selected CSS items (elements, classes and ids) and saves the rules for the indicated items into one file or several files depending on the settings in the preferences.
 
-createCSSSample(in elementsArray, in classesArray, in idsArray, out filePath)
+_createCSSSample(in elementsArray, in classesArray, in idsArray, out filePath)_
 
 Takes three arrays of CSS items and creates a template HTML file with embedded CSS of the selected elements.
 
-saveAll()
+_saveAll()_
 
 Saves the whole CSS file on the hard drive in the indicated directory
 
 
-_Preferences Functionality_
+==Preferences Functionality==
 
-
-setPath(in path)
+_setPath(in path)_
 
 Sets the path of the directory on the hard drive, where the CSS and HTML files are saved.
 
-retrievePath(out path)
+_retrievePath(out path)_
 
 Returns the path of the directory, where the CSS and HTML files are saved, or NULL of the path is empty.
 
-setMultipleFiles(in value)
+_setMultipleFiles(in value)_
 
 If the function is set to TRUE, then a separate CSS file is created for each item selected. Otherwise, all CSS rules are saved into one file.
 
-
-_JavaScript Functionality_
+==JavaScript Functionality==
 
 The functions that need to be implemented in JavaScript
 
-getPageStructure(in htmlDoc, out documentString)
+_getPageStructure(in htmlDoc, out documentString)_
 
 Takes the HTML document as an input and produces a tree-like string, where each HTML element is indented with tabs, based on it's position in the DOM tree. For each element we display the following parameters: name, label if exists, class, id.
