@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="../skin/css_stealer.css" type="text/css"?>
+<!DOCTYPE window>
+<window xmlns= "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	width="340" height="330">
+<script src="css_stealer.js"/>
+<vbox id="elementsBox">		
+	<label value="CSS Elements" id="caption"/>
+	 <listbox rows="5" height="200">
+      <listitem label="Elements" class="listCaption"/>
+      <listitem label="button" type="checkbox" id="elem0"/>
+	  <listitem label="h1" type="checkbox" id="elem1"/>
+	  <listitem label="div" type="checkbox" id="elem2"/>      
+	  <listitem label="IDs" class="listCaption"/>
+	  <listitem label="main_menu"  type="checkbox" id="id0"/>
+	  <listitem label="scroll_wnd"  type="checkbox" id="id1"/>
+	  <listitem label="item_list"  type="checkbox" id="id2"/>
+	  <listitem label="Classes" class="listCaption"/>
+	  <listitem label="white_border"  type="checkbox" id="class0"/>
+	  <listitem label="green_border"  type="checkbox" id="class1"/>
+	  <listitem label="yellow_highlight"  type="checkbox" id="class2"/>
+    </listbox>
+	<hbox>
+		<button id="all" label="Select All" oncommand="selectAll('true');"/>
+		<button id="un_all" label="Unselect All" oncommand="selectAll('false');"/>
+		<button id="steal" label="Steal" oncommand="doSteal();"/>
+	</hbox>
+	<hbox>
+		<label value="Path"/>
+		<textbox id="path" width="200"/>
+	</hbox>
+	<hbox>
+		<button id="mult" label="Set Mult" oncommand="setMult('true');"/>
+		<button id="no_mult" label="Set One" oncommand="setMult('false');"/>
+		<button id="set_path" label="Set Path" oncommand="setPath();"/>
+		<button id="get_path" label="Get Path" oncommand="getPath();"/>
+	</hbox>
+</vbox>
+</window>
