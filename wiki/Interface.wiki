@@ -28,7 +28,7 @@ _setPath(in path)_
 
 Sets the path of the directory on the hard drive, where the CSS and HTML files are saved.
 
-_retrievePath(out path)_
+_getPath(out path)_
 
 Returns the path of the directory, where the CSS and HTML files are saved, or NULL of the path is empty.
 
