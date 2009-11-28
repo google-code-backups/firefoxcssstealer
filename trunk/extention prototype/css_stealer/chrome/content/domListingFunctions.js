@@ -42,10 +42,10 @@ function createWindow()
     {
 		alert("1 ");
 		my_window = window.open ("", "mywindow1","status=1,width=350,height=150"); 
-		alert("2 ");
+		alert("2 "+my_window.document);
 		//my_window.document.write('<H1>Popup Test!</H1>');  		
-		my_window.write("<h1>Out with the old - in with the new!</h1>");
-		my_window.close();
+		my_window.document.write("<h1>Out with the old - in with the new!</h1>");
+		//my_window.close();
 		alert("3");
         //win = window.open("", "PopUp", "menubar=no,width=430,height=360,toolbar=no");
 		
@@ -60,7 +60,7 @@ function createWindow()
     }
     catch (exception)
     {
-        document.getElementById("divXml").innerHTML = NodesAsList;
+        //document.getElementById("divXml").innerHTML = NodesAsList;
 		alert('Exception '+exception);
     }
     
