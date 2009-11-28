@@ -8,7 +8,7 @@
 	<!-- Firefox Tools menu -->
     <menupopup id="menu_ToolsPopup">
         <menuitem id="css_stealer" label="CSS Stealer"
-		insertbefore="javascriptConsole" oncommand="clickStealer();displayNodes(document);createWindow();">
+		insertbefore="javascriptConsole" oncommand="parseNodes();">
         </menuitem>
     </menupopup>
 </overlay>
