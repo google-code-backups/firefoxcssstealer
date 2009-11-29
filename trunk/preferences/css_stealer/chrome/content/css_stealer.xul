@@ -2,39 +2,122 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="../skin/css_stealer.css" type="text/css"?>
 <!DOCTYPE window>
-<window xmlns= "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	width="340" height="330">
+<window xmlns= "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="onLoad();"
+	width="330" height="430" title="CSS Stealer">
 <script src="css_stealer.js"/>
-<vbox id="elementsBox">		
+<script><![CDATA[
+	function onLoad() 
+	{   
+		if("arguments" in window && window.arguments.length > 0) 
+		{
+			var cssList = document.getElementById("rulesList");	
+			
+			var idTitle = document.createElement("listitem");
+			idTitle.setAttribute("label", "IDs");
+			idTitle.setAttribute("class", "listCaption");	
+			cssList.appendChild(idTitle);		
+
+			for (i = 0; i < window.arguments[0].ids.length; ++ i)
+			{
+				var idItem = document.createElement("listitem");
+				idItem.setAttribute("label", window.arguments[0].ids[i]);
+				idItem.setAttribute("value", window.arguments[0].rulesID[i]);
+				idItem.setAttribute("type", "checkbox");
+
+				var idAttribute =  "id" + i.toString();
+				idItem.setAttribute("id", idAttribute);
+				
+				cssList.appendChild(idItem);
+			}
+
+			var elementTitle = document.createElement("listitem");
+			elementTitle.setAttribute("label", "Elements");
+			elementTitle.setAttribute("class", "listCaption");	
+			cssList.appendChild(elementTitle);		
+
+			for (i = 0; i < window.arguments[0].elements.length; ++ i)
+			{
+				var elementItem = document.createElement("listitem");
+				elementItem.setAttribute("label", window.arguments[0].elements[i]);
+				elementItem.setAttribute("value", window.arguments[0].rulesElement[i]);
+				elementItem.setAttribute("type", "checkbox");
+
+				var idAttribute =  "class" + i.toString();
+				elementItem.setAttribute("id", idAttribute);
+				
+				cssList.appendChild(elementItem);
+			}
+
+			var classTitle = document.createElement("listitem");
+			classTitle.setAttribute("label", "Classes");
+			classTitle.setAttribute("class", "listCaption");	
+			cssList.appendChild(classTitle);		
+
+			for (i = 0; i < window.arguments[0].classes.length; ++ i)
+			{
+				var classItem = document.createElement("listitem");
+				classItem.setAttribute("label", window.arguments[0].classes[i]);
+				classItem.setAttribute("type", "checkbox");
+				classItem.setAttribute("value", window.arguments[0].rulesClass[i]);
+
+				var idAttribute =  "elem" + i.toString();
+				classItem.setAttribute("id", idAttribute);
+				
+				cssList.appendChild(classItem);
+			}
+			
+		}   
+    
+    var pathBox = document.getElementById("path");
+    pathBox.setAttribute("value", getPath());
+    
+    var fileGenMenu = document.getElementById("FileGen");
+    var multipleFiles = getMultipleFiles();
+    
+    if (multipleFiles == true)
+    {
+      fileGenMenu.selectedIndex = 1;
+    }
+    else
+    {
+      fileGenMenu.selectedIndex = 0;
+    }
+    
+	}
+  ]]>
+</script>
+<vbox id="elementsBox" height="390">		
 	<label value="CSS Elements" id="caption"/>
-	 <listbox rows="5" height="200">
-      <listitem label="Elements" class="listCaption"/>
-      <listitem label="button" type="checkbox" id="elem0"/>
-	  <listitem label="h1" type="checkbox" id="elem1"/>
-	  <listitem label="div" type="checkbox" id="elem2"/>      
-	  <listitem label="IDs" class="listCaption"/>
-	  <listitem label="main_menu"  type="checkbox" id="id0"/>
-	  <listitem label="scroll_wnd"  type="checkbox" id="id1"/>
-	  <listitem label="item_list"  type="checkbox" id="id2"/>
-	  <listitem label="Classes" class="listCaption"/>
-	  <listitem label="white_border"  type="checkbox" id="class0"/>
-	  <listitem label="green_border"  type="checkbox" id="class1"/>
-	  <listitem label="yellow_highlight"  type="checkbox" id="class2"/>
+	 <listbox rows="5" height="200" id="rulesList" seltype="multiple">
     </listbox>
 	<hbox>
+     <spacer flex="1"/>
 		<button id="all" label="Select All" oncommand="selectAll('true');"/>
-		<button id="un_all" label="Unselect All" oncommand="selectAll('false');"/>
-		<button id="steal" label="Steal" oncommand="doSteal();"/>
+    <spacer flex="1"/>
+		<button id="un_all" label="Deselect All" oncommand="selectAll('false');"/>
+    <spacer flex="1"/>
 	</hbox>
+  <spacer flex="1"/>
+  <label value="File Storage Preferences" class="header"/>
 	<hbox>
-		<label value="Path"/>
-		<textbox id="path" width="200"/>
-	</hbox>
+		<label value="Path:"/>
+		<textbox id="path" width="185"/>
+     <button id="set_path" label="Save Path" oncommand="setPath();"/>
+	</hbox>  
 	<hbox>
-		<button id="mult" label="Set Mult" oncommand="setMult('true');"/>
-		<button id="no_mult" label="Set One" oncommand="setMult('false');"/>
-		<button id="set_path" label="Set Path" oncommand="setPath();"/>
-		<button id="get_path" label="Get Path" oncommand="getPath();"/>
-	</hbox>
+    <label value="File Generation:"/>
+        <menulist id="FileGen" class="button">
+          <menupopup>
+            <menuitem label="One File" oncommand="setMult('false');" />
+            <menuitem label="Multiple Files" oncommand="setMult('true');"/>        
+          </menupopup>
+        </menulist>
+	</hbox>  
+  <spacer flex="1"/>
+  <hbox>
+    <spacer flex="1"/>
+    <button id="steal" label="Steal" oncommand="steal()"/>
+    <spacer flex="1"/>
+  </hbox>
 </vbox>
 </window>
