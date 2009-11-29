@@ -87,6 +87,22 @@ MyPrefsImpl::GetPath(nsACString & path, PRBool *outSuccess)
   
   return NS_OK;
 }
+
+NS_IMETHODIMP
+MyPrefsImpl::GetMultipleFiles(PRBool * value, PRBool *outSuccess)
+{ 
+  *outSuccess = PR_TRUE;   
+  nsCOMPtr<nsIPrefService> pref(do_GetService(NS_PREFSERVICE_CONTRACTID));
+  if (! pref) *outSuccess = PR_FALSE;
+  nsCOMPtr<nsIPrefBranch> branch;
+  pref->GetBranch("css_stealer.", getter_AddRefs(branch));
+  if (! branch) *outSuccess = PR_FALSE;
+  nsCOMPtr<nsIPrefBranch2> branch2 (do_QueryInterface(branch));
+  if (! branch2) *outSuccess = PR_FALSE;
+  branch2->GetBoolPref("savemultiple", value);
+  
+  return NS_OK;
+}
 //***************************************************************
 //***************************************************************
 
