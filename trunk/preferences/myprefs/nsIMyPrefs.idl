@@ -12,5 +12,6 @@ interface nsIMyPrefs : nsISupports
   boolean setMultipleFiles(in boolean value, out boolean saved);
   boolean setPath(in AString value, out boolean saved);
   boolean getPath(out ACString path);
+  boolean getMultipleFiles(out boolean value);
   
 };
