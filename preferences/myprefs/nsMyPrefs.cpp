@@ -12,6 +12,7 @@
 #include "nsIPrefService.h"
 #include "nsIPrefBranch.h"
 #include "nsIPrefBranch2.h"
+#include "nsILocalFile.h"
 
 // Macro that expands to the implementation of AddRef, Release, and
 // QueryInterface, as well as some of the support classes needed
@@ -67,7 +68,12 @@ MyPrefsImpl::SetPath(const nsAString & value, PRBool *saved, PRBool *outSuccess)
   nsCOMPtr<nsIPrefBranch2> branch2 (do_QueryInterface(branch));
   if (! branch2) *saved = PR_FALSE;
   char* text = ToNewUTF8String(value);
-  branch2->SetCharPref("path", text);  
+  branch2->SetCharPref("path", text);
+  
+  nsresult rv;
+  nsCOMPtr<nsILocalFile> file = do_CreateInstance("@mozilla.org/file/local;1");
+  file->InitWithPath(value);
+  rv = file->Exists(saved);
   
   return NS_OK;
 }
