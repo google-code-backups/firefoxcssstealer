@@ -60,6 +60,12 @@ MyPrefsImpl::SetPath(const nsAString & value, PRBool *saved, PRBool *outSuccess)
   *outSuccess = PR_TRUE;
   *saved = PR_TRUE;  
   
+  nsresult rv;
+  nsCOMPtr<nsILocalFile> file = do_CreateInstance("@mozilla.org/file/local;1");
+  file->InitWithPath(value);
+  rv = file->Exists(saved);
+  if (*saved == PR_FALSE) return NS_OK;
+  
   nsCOMPtr<nsIPrefService> pref(do_GetService(NS_PREFSERVICE_CONTRACTID));
   if (! pref) *saved = PR_FALSE;
   nsCOMPtr<nsIPrefBranch> branch;
@@ -69,11 +75,6 @@ MyPrefsImpl::SetPath(const nsAString & value, PRBool *saved, PRBool *outSuccess)
   if (! branch2) *saved = PR_FALSE;
   char* text = ToNewUTF8String(value);
   branch2->SetCharPref("path", text);
-  
-  nsresult rv;
-  nsCOMPtr<nsILocalFile> file = do_CreateInstance("@mozilla.org/file/local;1");
-  file->InitWithPath(value);
-  rv = file->Exists(saved);
   
   return NS_OK;
 }

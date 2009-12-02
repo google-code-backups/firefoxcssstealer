@@ -63,10 +63,7 @@ function onLoadMain()
 function onLoadPrefs() {
 
 	var pathBox = document.getElementById("path");	
-	var path = getPath();
-	pathBox.value = path;
-    //pathBox.setAttribute("value", path);
-	//pathBox.setAttribute("value", "test");
+	pathBox.value = getPath();
 
     var fileGenMenu = document.getElementById("FileGen");
     var multipleFiles = getMultipleFiles();
