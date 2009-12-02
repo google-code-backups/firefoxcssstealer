@@ -1,0 +1,3 @@
+content     css_stealer    	chrome/content/
+skin 		css_stealer 	catalog	 chrome/skin/
+overlay chrome://browser/content/browser.xul chrome://css_stealer/content/browserOverlay.xul

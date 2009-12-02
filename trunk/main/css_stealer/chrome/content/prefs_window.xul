@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="../skin/css_stealer.css" type="text/css"?>
+<!DOCTYPE window>
+<window xmlns= "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	width="350" height="120" onload="onLoadPrefs();" title="Preferences">
+<script src="css_stealer.js"/>
+	<label value="File Storage Preferences" class="header"/>
+	<hbox>
+		<label value="Path:"/>
+		<textbox id="path" width="185"/>
+		<button id="set_path" label="Save Path" value="" oncommand="setPath();"/>
+	</hbox>  
+	<hbox>
+		<label value="File Generation:"/>
+        <menulist id="FileGen" class="button">
+          <menupopup>
+            <menuitem label="One File" oncommand="setMult('false');" />
+            <menuitem label="Multiple Files" oncommand="setMult('true');"/>        
+          </menupopup>
+        </menulist>
+	</hbox> 
+	<hbox>
+		<spacer flex="1"/>
+		<button id="close_btn" label="Close" value="" oncommand="closePrefs();"/>
+		<spacer flex="1"/>
+	</hbox>
+</window>

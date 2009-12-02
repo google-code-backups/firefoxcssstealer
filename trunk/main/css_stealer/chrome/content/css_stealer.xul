@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="../skin/css_stealer.css" type="text/css"?>
+<!DOCTYPE window>
+<window xmlns= "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="onLoadMain();"
+	width="330" height="300" title="CSS Stealer">
+<script src="css_stealer.js"/>
+<vbox id="elementsBox" height="330">
+	<label value="CSS Elements" id="caption"/>
+	<listbox rows="5" height="200" id="rulesList" seltype="multiple"/>
+	<hbox>
+		<spacer flex="1"/>
+		<button id="all" label="Select All" oncommand="selectAll('true');"/>
+		<spacer flex="1"/>
+		<button id="un_all" label="Deselect All" oncommand="selectAll('false');"/>
+		<spacer flex="1"/>	
+		<button id="steal" label="Steal" oncommand="steal();"/>	
+		<spacer flex="1"/>
+	</hbox>		 
+	<hbox>
+		<spacer flex="1"/>
+		<button id="prefs" label="Preferences" oncommand="showPrefs();"/>  
+		<spacer flex="1"/>
+	</hbox>
+</vbox>
+</window>

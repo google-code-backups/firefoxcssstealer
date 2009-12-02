@@ -1,0 +1,17 @@
+#include "nsISupports.idl"
+%{C++
+#include "nsStringGlue.h"
+#include "nsCOMPtr.h"
+%}
+
+[scriptable, uuid(4619b5ff-e699-43f4-a485-73205c4cf09e)]
+
+// Declare an interface, nsIMyPrefs which inherits from nsISupports only
+interface nsIMyPrefs : nsISupports
+{
+  boolean setMultipleFiles(in boolean value, out boolean saved);
+  boolean setPath(in AString value, out boolean saved);
+  boolean getPath(out ACString path);
+  boolean getMultipleFiles(out boolean value);
+  
+};
