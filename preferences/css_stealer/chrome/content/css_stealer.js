@@ -61,9 +61,13 @@ function onLoadMain()
 }
 
 function onLoadPrefs() {
-	var pathBox = document.getElementById("path");
-    pathBox.setAttribute("value", getPath());
-    
+
+	var pathBox = document.getElementById("path");	
+	var path = getPath();
+	pathBox.value = path;
+    //pathBox.setAttribute("value", path);
+	//pathBox.setAttribute("value", "test");
+
     var fileGenMenu = document.getElementById("FileGen");
     var multipleFiles = getMultipleFiles();
     
@@ -72,6 +76,10 @@ function onLoadPrefs() {
     } else {
       fileGenMenu.selectedIndex = 0;
     }    
+}
+
+function closePrefs() {
+	this.close();
 }
 	
 function clickStealer() {
@@ -315,8 +323,9 @@ function getPath() {
 		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
     
 		var path = {};
-		  
+		
 		var result = obj.getPath(path);
+		
 		if (result == true) {		
 			retVal = path.value;
 		} else {
@@ -324,7 +333,6 @@ function getPath() {
 		}
 	}
 	catch (e) { alert("there was an error/JS exception "+e); }
-  
   return retVal;
 }
 
