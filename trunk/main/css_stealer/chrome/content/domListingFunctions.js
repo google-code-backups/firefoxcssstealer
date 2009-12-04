@@ -1,18 +1,22 @@
 ﻿var XmlDoc;
-var NodesAsList = "";
-
+var NodesAsList = "";
+function displayNodes(){
+	var browser = gBrowser.mCurrentBrowser; 	var doc = browser.contentDocument;
+	displayNodes(doc);
+	createWindow();
+}
 function parseNodes()
 {
 	var browser = gBrowser.mCurrentBrowser;	
-	alert('parse Nodes '+browser);
 	displayNodes(browser.contentDocument);
 	createWindow();
-}
+}
 
 //Walks the dom tree and displays elements in red, Text in blue, ID in green, and Class Name in purple
 //This is a recursive function
 function displayNodes(DOC)
-{	
+
+{
     NodesAsList += "<ol>";
     for (var i = 0; i < DOC.childNodes.length; i++)
     {
@@ -37,29 +41,48 @@ function displayNodes(DOC)
 //Seperate function to show the window.  This is needed because of the recursive function to get the nodes
 function createWindow()
 {
-    alert('create window');
     try
     {
-		alert("1 ");
-		my_window = window.open ("", "mywindow1","status=1,width=350,height=150"); 
-		alert("2 "+my_window.document);
-		my_window.document.write("<h1>Out with the old - in with the new!</h1>");
-		alert("3");
-        //win = window.open("", "PopUp", "menubar=no,width=430,height=360,toolbar=no");
+		var a = gBrowser.mCurrentBrowser;
+		var doc = a.contentDocument;
 		
-		//var win = window.openDialog("chrome://css_stealer/content/window.html", 
-        //             "window_structure", "chrome,centerscreen",
-		//			  {html: NodesAsList}); 
-		//alert('win '+win);
-		//win.document.bgcolor = "red";
-		//alert('bg color '+win.document.bgcolor);
-        //win.document.write('text');
-		//popUp.document.writeln(NodesAsList);
+		var file = Components.classes["@mozilla.org/file/directory_service;1"].
+                     getService(Components.interfaces.nsIProperties).
+                     get("ProfD", Components.interfaces.nsIFile);
+		var dir = file.path + "/extensions/css_stealer@group.net/chrome/content/sitePreview.html";
+
+		var oldFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+		oldFile.initWithPath(dir);
+		//alert(oldFile.path);
+		try{
+			oldFile.remove(false);
+		}
+		catch(e){}
+		var keyHtml = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'><html><head><title></title></head><body>" + NodesAsList + "</body></html>";
+		writeToFile(keyHtml, dir);
+		my_window = window.open ("chrome://css_stealer/content/sitePreview.html", "Page Elements, Classes, and ID's","status=1,width=350,height=200,scrollbars=1"); 
     }
     catch (exception)
     {
-        //document.getElementById("divXml").innerHTML = NodesAsList;
 		alert('Exception '+exception);
     }
     
+}
+
+
+
+function writeToFile(data, filePath)
+{
+  var file = Components.classes["@mozilla.org/file/local;1"]
+  .createInstance(Components.interfaces.nsILocalFile);
+  var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+                         .createInstance(Components.interfaces.nsIFileOutputStream);
+  file.initWithPath(filePath);
+  if ( file.exists() == false ) {
+    file.create(file.NORMAL_FILE_TYPE, 0666);  
+  }
+
+  foStream.init(file, 0x02 | 0x10| 0x20, 0666, 0);
+  foStream.write(data, data.length);
+  foStream.close(); 
 }
