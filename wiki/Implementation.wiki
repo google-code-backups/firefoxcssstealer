@@ -1,0 +1,12 @@
+#summary Detailed description of implementation
+
+= C++ Component =
+
+
+
+
+= JavaScript =
+
+
+
+= Firefox Extension =
