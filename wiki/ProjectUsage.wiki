@@ -23,3 +23,5 @@ http://firefoxcssstealer.googlecode.com/svn/trunk/images/screen4.PNG
  # In the other window you will see the HTML structure of the current document. It is useful to see which classes, ids or elements are used where.
 http://firefoxcssstealer.googlecode.com/svn/trunk/images/screen5.PNG
  # In the main CSS Stealer window you can check the styles you want to steal (you can also use Select/Deselect All buttons) and then click the 'Steal' button. The files will be saved in the folder, that you indicated in the preference.
+http://firefoxcssstealer.googlecode.com/svn/trunk/images/screen6.PNG
+When you use the CSS Stealer again, those files would be overwritten. So, make sure you copy the rules you need somewhere else!
