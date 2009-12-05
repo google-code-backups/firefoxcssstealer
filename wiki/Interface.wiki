@@ -17,7 +17,7 @@ _createCSSSample(in elementsArray, in classesArray, in idsArray, out filePath)_
 
 Takes three arrays of CSS items and creates a template HTML file with embedded CSS of the selected elements.
 
-_saveAll()_
+_stealAll()_
 
 Saves the whole CSS file on the hard drive in the indicated directory
 
