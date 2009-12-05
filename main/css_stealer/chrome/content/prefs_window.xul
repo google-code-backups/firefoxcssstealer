@@ -9,7 +9,7 @@
 	<hbox>
 		<label value="Path:"/>
 		<textbox id="path" width="185"/>
-		<button id="set_path" label="Save Path" value="" oncommand="setPath();"/>
+		<button id="set_path" label="Choose Folder" value="" oncommand="choosePath();"/>
 	</hbox>  
 	<hbox>
 		<label value="File Generation:"/>
