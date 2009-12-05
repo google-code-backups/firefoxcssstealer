@@ -13,6 +13,9 @@ CSS Stealer is a tool for web programmers and web designers which allows to see 
 == How to use the CSS Stealer ==
 
  # Open the Tools menu and click on CSS Stealer.
+http://code.google.com/images/code_sm.png
+
+
 http://code.google.com/p/firefoxcssstealer/source/browse/trunk/images/screen1.JPG
  # When you run the extension for the first time, you should see a message saying that you need to set up the path in the Preference window.
  # You will see the main CSS Stealer window with the Preferences button on the bottom. Click that.
