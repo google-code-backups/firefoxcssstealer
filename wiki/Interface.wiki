@@ -36,6 +36,14 @@ _setMultipleFiles(in value)_
 
 If the function is set to TRUE, then a separate CSS file is created for each item selected. Otherwise, all CSS rules are saved into one file.
 
+_getMultipleFiles(out value)_
+
+Returns the value of the preference, if the CSS rules are saved in one file or multiple files.
+
+_getUserSet(out value)_
+
+Returns true if the user has already set the path and false otherwise (if the path preference has the default value). The function is used in the first run of the extension to prompt user to enter the path
+
 ==JavaScript Functionality==
 
 The functions that need to be implemented in JavaScript
