@@ -9,7 +9,7 @@ function onLoadMain()
 		idTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(idTitle);		
 
-		for (i = 0; i < window.arguments[0].ids.length; ++ i)
+		for (int i = 0; i < window.arguments[0].ids.length; ++ i)
 		{
 			var idItem = document.createElement("listitem");
 			idItem.setAttribute("label", window.arguments[0].ids[i]);
@@ -312,6 +312,19 @@ function setPath() {
 		}
 	}
 	catch (e) { alert("there was an error/JS exception "+e); }
+}
+
+function checkDefaultPrefs() {
+	try {
+		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
+		var userDefined = {};
+		result = obj.getUserSet(userDefined);
+		if (result == true) {		
+			if (userDefined.value == false) alert("Please set the file path first in the Preferences window");
+		} else {
+			alert("There was an error in the XPCOM component");
+		}
+	} catch (e) { alert("there was an error/JS exception "+e); }
 }
 
 function getPath() {
