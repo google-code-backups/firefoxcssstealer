@@ -9,7 +9,8 @@ function onLoadMain()
 		idTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(idTitle);		
 
-		for (int i = 0; i < window.arguments[0].ids.length; ++ i)
+		var i = 0;		
+		for (i = 0; i < window.arguments[0].ids.length; i++)
 		{
 			var idItem = document.createElement("listitem");
 			idItem.setAttribute("label", window.arguments[0].ids[i]);
@@ -27,7 +28,7 @@ function onLoadMain()
 		elementTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(elementTitle);		
 
-		for (i = 0; i < window.arguments[0].elements.length; ++ i)
+		for (i = 0; i < window.arguments[0].elements.length; i++)
 		{
 			var elementItem = document.createElement("listitem");
 			elementItem.setAttribute("label", window.arguments[0].elements[i]);
@@ -44,7 +45,7 @@ function onLoadMain()
 		classTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(classTitle);		
 
-		for (i = 0; i < window.arguments[0].classes.length; ++ i)
+		for (i = 0; i < window.arguments[0].classes.length; i++)
 		{
 			var classItem = document.createElement("listitem");
 			classItem.setAttribute("label", window.arguments[0].classes[i]);
@@ -263,7 +264,8 @@ function writeCSSToFile(data, filePath)
 
 	foStream.init(file, 0x02 | 0x10| 0x20, 0666, 0);
 	foStream.write(data, data.length);
-	foStream.close(); 
+	foStream.close();
+	alert("CSS was saved");
 }
 
 function showPrefs() {	
@@ -292,7 +294,23 @@ function setMult(stValue) {
 	catch (e) { alert("there was an error/JS exception "+e); }
 }
 
-function setPath() {
+function choosePath() {
+	try {
+		var fp = Components.classes["@mozilla.org/filepicker;1"]
+                   .createInstance(Components.interfaces.nsIFilePicker);
+		fp.init(this, "Choose folder", 2);
+		var result = fp.show();		
+		if (result == 0) {
+			var path = fp.file.path;			
+			var pathTextBox = document.getElementById("path");
+			pathTextBox.value = path;
+			savePath();
+		}
+		
+	} catch (e) { alert("there was an error/JS exception "+e); }
+}
+
+function savePath() {
 	try {
 		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
 		var pathTextBox = document.getElementById("path");
@@ -302,9 +320,7 @@ function setPath() {
 		  
 		var result = obj.setPath(path, saved);
 		if (result == true) {					
-			if (saved.value) {
-				alert("File path saved");
-			} else {
+			if (! saved.value) {
 				alert("The path does not exist, please choose a different path");				
 			}
 		} else {
