@@ -16,8 +16,10 @@ We also tested and debugged each others code, especially if there were some unre
 
 == Google code tools ==
 
-The most handy tool provided by the Google Code website was the Code Management System, we used SVN. That allowed easy access to the latest version of the code. And although we had some code conflicts, they were pretty easy to resolve.
+The most handy tool provided by the Google Code website was the *Code Management System*, we used SVN. That allowed easy access to the latest version of the code. And although we had some code conflicts, they were pretty easy to resolve.
 
-We also used Bug Tracker, which allowed us not to forget about some issues that still needed to be implemented.
+We also used *Bug Tracker*, which allowed us not to forget about some issues that still needed to be implemented.
 
-At the beginning of the project we used Wiki a lot to discuss the implementation issues, interface of the components. Wiki pages are quite useful at the stage of planing the architecture. After that email gives more direct and to the point communication, since we were discussing concrete issues.
+Using the *Code Review* functionality was a little confusion and actually was not that useful; perhaps, because the size of the group was pretty small, as well as the size of the project. So we knew each others code pretty well.
+
+At the beginning of the project we used *Wiki* a lot to discuss the implementation issues, interface of the components. Wiki pages are quite useful at the stage of planing the architecture. After that email gives more direct and to the point communication, since we were discussing concrete issues.
