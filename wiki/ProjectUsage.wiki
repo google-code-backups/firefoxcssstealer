@@ -13,10 +13,7 @@ CSS Stealer is a tool for web programmers and web designers which allows to see 
 == How to use the CSS Stealer ==
 
  # Open the Tools menu and click on CSS Stealer.
-http://code.google.com/images/code_sm.png
-
-
-http://code.google.com/p/firefoxcssstealer/source/browse/trunk/images/screen1.JPG
+http://firefoxcssstealer.googlecode.com/svn/trunk/images/screen1.PNG
  # When you run the extension for the first time, you should see a message saying that you need to set up the path in the Preference window.
  # You will see the main CSS Stealer window with the Preferences button on the bottom. Click that.
  # In the Preferences window choose that path, where the CSS files will be stored. Then select if you want the CSS rules to be saved in one file or in separate files, one for each rule. The saved files will have the following names: Stolen.css or Stolen1.css, Stolen2.css, etc.
