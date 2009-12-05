@@ -48,6 +48,6 @@ Returns true if the user has already set the path and false otherwise (if the pa
 
 The functions that need to be implemented in JavaScript
 
-_getPageStructure(in htmlDoc, out documentString)_
+_displayNodes(in htmlDoc, out documentString)_
 
 Takes the HTML document as an input and produces a tree-like string, where each HTML element is indented with tabs, based on it's position in the DOM tree. For each element we display the following parameters: name, label if exists, class, id.
