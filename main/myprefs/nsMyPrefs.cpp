@@ -13,6 +13,7 @@
 #include "nsIPrefBranch.h"
 #include "nsIPrefBranch2.h"
 #include "nsILocalFile.h"
+#include "nsIFileStreams.h"
 
 // Macro that expands to the implementation of AddRef, Release, and
 // QueryInterface, as well as some of the support classes needed
@@ -66,6 +67,28 @@ MyPrefsImpl::SetPath(const nsAString & value, PRBool *saved, PRBool *outSuccess)
   rv = file->Exists(saved);
   if (*saved == PR_FALSE) return NS_OK;
   
+  //try to create a file
+  /*
+  try {
+	nsString filename = NS_LITERAL_STRING("");
+	filename.Append(value);
+	filename.Append(NS_LITERAL_STRING("temp.txt"));
+	file->InitWithPath(value);
+	file->Append(NS_LITERAL_STRING("temp.txt"));
+	rv = file->Create(file->NORMAL_FILE_TYPE, 0666);
+	PRUint32 writeResult = 0;
+	char* text = ToNewUTF8String(filename);
+	nsCOMPtr<nsIFileOutputStream> outputstr = do_CreateInstance("@mozilla.org/network/file-output-stream;1");
+	outputstr->Init(file, -1, -1, 0);
+	outputstr->Write(text, filename.Length(), &writeResult);
+	outputstr->Close();
+  }
+  catch (int exNum) {
+	*saved = PR_FALSE; 
+	return NS_OK;
+  }
+  */
+  
   nsCOMPtr<nsIPrefService> pref(do_GetService(NS_PREFSERVICE_CONTRACTID));
   if (! pref) *saved = PR_FALSE;
   nsCOMPtr<nsIPrefBranch> branch;
@@ -74,6 +97,7 @@ MyPrefsImpl::SetPath(const nsAString & value, PRBool *saved, PRBool *outSuccess)
   nsCOMPtr<nsIPrefBranch2> branch2 (do_QueryInterface(branch));
   if (! branch2) *saved = PR_FALSE;
   char* text = ToNewUTF8String(value);
+  //text = ToNewUTF8String(value);
   branch2->SetCharPref("path", text);
   
   return NS_OK;
@@ -107,6 +131,22 @@ MyPrefsImpl::GetMultipleFiles(PRBool * value, PRBool *outSuccess)
   nsCOMPtr<nsIPrefBranch2> branch2 (do_QueryInterface(branch));
   if (! branch2) *outSuccess = PR_FALSE;
   branch2->GetBoolPref("savemultiple", value);
+  
+  return NS_OK;
+}
+
+NS_IMETHODIMP
+MyPrefsImpl::GetUserSet(PRBool * value, PRBool *outSuccess)
+{ 
+  *outSuccess = PR_TRUE;   
+  nsCOMPtr<nsIPrefService> pref(do_GetService(NS_PREFSERVICE_CONTRACTID));
+  if (! pref) *outSuccess = PR_FALSE;
+  nsCOMPtr<nsIPrefBranch> branch;
+  pref->GetBranch("css_stealer.", getter_AddRefs(branch));
+  if (! branch) *outSuccess = PR_FALSE;
+  nsCOMPtr<nsIPrefBranch2> branch2 (do_QueryInterface(branch));
+  if (! branch2) *outSuccess = PR_FALSE;
+  branch2->PrefHasUserValue("path", value);  
   
   return NS_OK;
 }

@@ -4,12 +4,12 @@
 <!DOCTYPE overlay>
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="text/javascript" src="chrome://css_stealer/content/css_stealer.js"/>
-	<script type="text/javascript" src="chrome://css_stealer/content/domListingFunctions.js"/>
+	<!-- <script type="text/javascript" src="chrome://css_stealer/content/domListingFunctions.js"/> -->
 
 	<!-- Firefox Tools menu -->
     <menupopup id="menu_ToolsPopup">
         <menuitem id="css_stealer" label="CSS Stealer"
-		insertbefore="javascriptConsole" oncommand="displayNodes(); clickStealer();">
+		insertbefore="javascriptConsole" oncommand="checkDefaultPrefs(); clickStealer();">
         </menuitem>
     </menupopup>
 </overlay>
