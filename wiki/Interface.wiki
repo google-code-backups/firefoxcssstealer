@@ -9,7 +9,7 @@ _getCSS(in htmlDoc, out elementsArray, out classesArray, out idsArray)_
 
 Takes the current HTML document and returns three arrays of different types of CSS items (elements, classes and ids). The returned arrays might be empty.
 
-_saveCSS(in elementsArray, in classesArray, in idsArray)_
+_steal(in elementsArray, in classesArray, in idsArray)_
 
 Takes three arrays of the selected CSS items (elements, classes and ids) and saves the rules for the indicated items into one file or several files depending on the settings in the preferences.
 
