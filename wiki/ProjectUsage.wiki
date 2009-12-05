@@ -1,4 +1,6 @@
-#summary How to use the project
+#summary How to use the extension
+
+
 
 = Usage =
 
