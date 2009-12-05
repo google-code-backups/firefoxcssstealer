@@ -1,12 +1,8 @@
 ﻿var XmlDoc;
 var NodesAsList = "";
-function displayNodes(){
-	var browser = gBrowser.mCurrentBrowser; 	var doc = browser.contentDocument;
-	displayNodes(doc);
-	createWindow();
-}
 function parseNodes()
 {
+	alert("parse nodes");
 	var browser = gBrowser.mCurrentBrowser;	
 	displayNodes(browser.contentDocument);
 	createWindow();
@@ -46,21 +42,17 @@ function createWindow()
 		var a = gBrowser.mCurrentBrowser;
 		var doc = a.contentDocument;
 		
-		var file = Components.classes["@mozilla.org/file/directory_service;1"].
-                     getService(Components.interfaces.nsIProperties).
-                     get("ProfD", Components.interfaces.nsIFile);
-		var dir = file.path + "/extensions/css_stealer@group.net/chrome/content/sitePreview.html";
-
-		var oldFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-		oldFile.initWithPath(dir);
+		//var oldFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+		
 		//alert(oldFile.path);
-		try{
-			oldFile.remove(false);
-		}
-		catch(e){}
+		//try{
+			//oldFile.initWithPath(dir);
+			//oldFile.remove(false);
+		//}
+		//catch(e){}
 		var keyHtml = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'><html><head><title></title></head><body>" + NodesAsList + "</body></html>";
-		writeToFile(keyHtml, dir);
-		my_window = window.open ("chrome://css_stealer/content/sitePreview.html", "Page Elements, Classes, and ID's","status=1,width=350,height=200,scrollbars=1"); 
+		var path = writeToFile(keyHtml);
+		my_window = window.open ("file://"+path, "Page Elements, Classes, and ID's","status=1,width=350,height=200,scrollbars=1"); 
     }
     catch (exception)
     {
@@ -71,13 +63,22 @@ function createWindow()
 
 
 
-function writeToFile(data, filePath)
+function writeToFile(data)
 {
-  var file = Components.classes["@mozilla.org/file/local;1"]
-  .createInstance(Components.interfaces.nsILocalFile);
+  var file = Components.classes["@mozilla.org/file/directory_service;1"].
+                     getService(Components.interfaces.nsIProperties).
+                     get("ProfD", Components.interfaces.nsIFile);
   var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
                          .createInstance(Components.interfaces.nsIFileOutputStream);
-  file.initWithPath(filePath);
+	alert(file);
+	file.append("sitePreview.html");
+
+  alert(file.path);
+  //file.initWithPath("C:\\Users\\wilsoan4\\appdata\\Roaming\\Mozilla\\Firefox\\Profiles\\3tilxr35.default\\extensions\\css_stealer@group.net\\chrome\\content\\sitePreview.html");
+  if(file.exists())
+  {
+	file.remove(false);
+  }
   if ( file.exists() == false ) {
     file.create(file.NORMAL_FILE_TYPE, 0666);  
   }
@@ -85,4 +86,5 @@ function writeToFile(data, filePath)
   foStream.init(file, 0x02 | 0x10| 0x20, 0666, 0);
   foStream.write(data, data.length);
   foStream.close(); 
+  return file.path;
 }
