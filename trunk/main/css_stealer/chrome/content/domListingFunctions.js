@@ -1,8 +1,8 @@
 ﻿var XmlDoc;
 var NodesAsList = "";
+// This funtion prepares and creates the preview window and 
 function parseNodes()
 {
-	alert("parse nodes");
 	var browser = gBrowser.mCurrentBrowser;	
 	displayNodes(browser.contentDocument);
 	createWindow();
@@ -14,19 +14,28 @@ function displayNodes(DOC)
 
 {
     NodesAsList += "<ol>";
+    
+    // Loop through all of the children of the current node
     for (var i = 0; i < DOC.childNodes.length; i++)
     {
-        Node = DOC.childNodes[i];
-        Class = (Node.nodeType == 3) ? "TextNode" : "NonTextNode";
-
-        NodesAsList += "<li class=" + Class + ">";
-        NodesAsList += "<font color='red'>Element: " + Node.nodeName +
-                       "</font><font color='blue'>  Text: " + Node.innerText +
-                       "</font><font color='Green'>  ID: " + Node.id + 
-                       "</font><font color='purple'>  Class: " + Node.className + "</font>";
-        if (Node.hasChildNodes())
+        var Node = DOC.childNodes[i];                
+        
+        // If the node is valid then write its data
+        if (Node)
         {
-            displayNodes(Node);
+          var Class = (Node.nodeType == 3) ? "TextNode" : "NonTextNode";
+
+          NodesAsList += "<li class=" + Class + ">";
+          NodesAsList += "<font color='red'>Element: " + Node.nodeName +
+                        //"</font><font color='blue'>  Text: " + Node.innerText +
+                        "</font><font color='Green'>  ID: " + Node.id + 
+                        "</font><font color='purple'>  Class: " + Node.className + "</font>";
+                        
+          // If the node has any children then process each of them
+          if (Node.hasChildNodes())
+          {
+              displayNodes(Node);
+          }
         }
         NodesAsList += "</li>";
     }
@@ -39,52 +48,50 @@ function createWindow()
 {
     try
     {
-		var a = gBrowser.mCurrentBrowser;
-		var doc = a.contentDocument;
-		
-		//var oldFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-		
-		//alert(oldFile.path);
-		//try{
-			//oldFile.initWithPath(dir);
-			//oldFile.remove(false);
-		//}
-		//catch(e){}
-		var keyHtml = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'><html><head><title></title></head><body>" + NodesAsList + "</body></html>";
-		var path = writeToFile(keyHtml);
-		my_window = window.open ("file://"+path, "Page Elements, Classes, and ID's","status=1,width=350,height=200,scrollbars=1"); 
+      // get the content of the browser window
+      var a = gBrowser.mCurrentBrowser;
+      var doc = a.contentDocument;
+      
+      // write the preview window data and open the window
+      var keyHtml = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'><html><head><title></title></head><body>" + NodesAsList + "</body></html>";
+      var path = writeToFile(keyHtml);
+      window.open ("file://"+path, "Page Elements, Classes, and ID's","status=1,width=350,height=200,scrollbars=1"); 
     }
     catch (exception)
     {
-		alert('Exception '+exception);
+      alert('Exception '+exception);
     }
-    
 }
 
-
-
+// This function write the preview window file
 function writeToFile(data)
 {
+  // create the file
   var file = Components.classes["@mozilla.org/file/directory_service;1"].
                      getService(Components.interfaces.nsIProperties).
                      get("ProfD", Components.interfaces.nsIFile);
+ 	file.append("sitePreview.html");
+  
+  // create the file stream
   var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
                          .createInstance(Components.interfaces.nsIFileOutputStream);
-	alert(file);
-	file.append("sitePreview.html");
 
-  alert(file.path);
-  //file.initWithPath("C:\\Users\\wilsoan4\\appdata\\Roaming\\Mozilla\\Firefox\\Profiles\\3tilxr35.default\\extensions\\css_stealer@group.net\\chrome\\content\\sitePreview.html");
+  // if the file exists remove it
   if(file.exists())
   {
-	file.remove(false);
+    file.remove(false);
   }
+  
+  // create a new file
   if ( file.exists() == false ) {
     file.create(file.NORMAL_FILE_TYPE, 0666);  
   }
 
+  // initialize the file stream and write the file and close it
   foStream.init(file, 0x02 | 0x10| 0x20, 0666, 0);
   foStream.write(data, data.length);
   foStream.close(); 
+  
+  // return the file path
   return file.path;
 }
