@@ -3,14 +3,16 @@
 <?xml-stylesheet href="../skin/css_stealer.css" type="text/css"?>
 <!DOCTYPE window>
 <window xmlns= "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	width="350" height="120" onload="onLoadPrefs();" title="Preferences">
-<script src="css_stealer.js"/>
-	<label value="File Storage Preferences" class="header"/>
+	width="350" height="170" onload="onLoadPrefs();" title="Preferences">
+<script src="prefs_manager.js"/>
+<vbox height="150">
+	<label value="File Storage Preferences" class="header"/>  
 	<hbox>
 		<label value="Path:"/>
-		<textbox id="path" width="185"/>
-		<button id="set_path" label="Choose Folder" value="" oncommand="choosePath();"/>
+		<textbox id="path" readonly="true" width="170"/>
+		<button id="set_path" label="Choose Path" value="" oncommand="selectDirectory();"/>
 	</hbox>  
+    <spacer flex="1"/>
 	<hbox>
 		<label value="File Generation:"/>
         <menulist id="FileGen" class="button">
@@ -20,9 +22,12 @@
           </menupopup>
         </menulist>
 	</hbox> 
+    <spacer flex="1"/>
 	<hbox>
 		<spacer flex="1"/>
 		<button id="close_btn" label="Close" value="" oncommand="closePrefs();"/>
-		<spacer flex="1"/>
+  <spacer flex="1"/>
 	</hbox>
+    <spacer flex="1"/>
+  </vbox>
 </window>
