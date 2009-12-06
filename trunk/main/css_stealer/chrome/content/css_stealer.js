@@ -1,16 +1,18 @@
+// This function populates the list of selectable CSS rules
 function onLoadMain() 
 {   
 	if("arguments" in window && window.arguments.length > 0) 
 	{
 		var cssList = document.getElementById("rulesList");	
 		
+    // create a header for the IDs
 		var idTitle = document.createElement("listitem");
 		idTitle.setAttribute("label", "IDs");
 		idTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(idTitle);		
 
-		var i = 0;		
-		for (i = 0; i < window.arguments[0].ids.length; i++)
+    // loop through all of the IDs and create listItems for each
+		for (var i = 0; i < window.arguments[0].ids.length; ++ i)
 		{
 			var idItem = document.createElement("listitem");
 			idItem.setAttribute("label", window.arguments[0].ids[i]);
@@ -23,12 +25,14 @@ function onLoadMain()
 			cssList.appendChild(idItem);
 		}
 
+    // create a header for the Elements
 		var elementTitle = document.createElement("listitem");
 		elementTitle.setAttribute("label", "Elements");
 		elementTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(elementTitle);		
 
-		for (i = 0; i < window.arguments[0].elements.length; i++)
+    // loop through all of the Elements and create listItems for each
+		for (var i = 0; i < window.arguments[0].elements.length; ++ i)
 		{
 			var elementItem = document.createElement("listitem");
 			elementItem.setAttribute("label", window.arguments[0].elements[i]);
@@ -40,12 +44,14 @@ function onLoadMain()
 			cssList.appendChild(elementItem);
 		}
 
+    // create a header for the Classes
 		var classTitle = document.createElement("listitem");
 		classTitle.setAttribute("label", "Classes");
 		classTitle.setAttribute("class", "listCaption");	
 		cssList.appendChild(classTitle);		
 
-		for (i = 0; i < window.arguments[0].classes.length; i++)
+    // loop through all of the Classes and create listItems for each
+		for (var i = 0; i < window.arguments[0].classes.length; ++ i)
 		{
 			var classItem = document.createElement("listitem");
 			classItem.setAttribute("label", window.arguments[0].classes[i]);
@@ -60,30 +66,13 @@ function onLoadMain()
 			
 	}    
 }
-
-function onLoadPrefs() {
-
-	var pathBox = document.getElementById("path");	
-	pathBox.value = getPath();
-
-    var fileGenMenu = document.getElementById("FileGen");
-    var multipleFiles = getMultipleFiles();
-    
-    if (multipleFiles == true) {
-      fileGenMenu.selectedIndex = 1;
-    } else {
-      fileGenMenu.selectedIndex = 0;
-    }    
-}
-
-function closePrefs() {
-	this.close();
-}
 	
+// This function retrieves all of the CSS rules and passes them to the dialog
 function clickStealer() {
 	var sheet;
 	var selector;
 
+  // create arrays that will hold the names and rules for all of the CSS rules
 	var idArray = new Array();
 	var classArray = new Array();
 	var elementArray = new Array();
@@ -91,32 +80,40 @@ function clickStealer() {
 	var classRules = new Array();
 	var elementRules = new Array();
 
+  // get the current browser's content
 	var browser = gBrowser.mCurrentBrowser;
 	var doc = browser.contentDocument;
 
-	for (i=0; i < doc.styleSheets.length; ++i)
+  // loop through all of the current browser's stylesheets
+	for (var i=0; i < doc.styleSheets.length; ++i)
 	{	
-		sheet = doc.styleSheets[i].cssRules;
+		var sheet = doc.styleSheets[i].cssRules;
 
-		for (j = 0; j < sheet.length; ++j)
+    // loop through all of the rules in each sheet
+		for (var j = 0; j < sheet.length; ++j)
 		{			
-			selector = sheet[j].selectorText;
-			ruleText = sheet[j].cssText;
+      // get the name of the rule and the text
+			var selector = sheet[j].selectorText;
+			var ruleText = sheet[j].cssText;
 
+      // if the rule is valid
 			if (selector)
 			{
+        // if the rule starts with a '#' then it is an ID
 				if (selector.charAt(0) == '#')
 				{
 					// put into id
 					idArray.push(selector);
 					idRules.push(ruleText);
 				}
+        // if the rule starts with a '.' it is a class
 				else if (selector.charAt(0) == '.')
 				{
 					// put into class
 					classArray.push(selector);
 					classRules.push(ruleText);
 				}
+        // otherwise it is an element
 				else
 				{
 					// put into element
@@ -128,9 +125,11 @@ function clickStealer() {
 
 	}
 
+  // open the CSS Stealer dialog and pass in the arrays
 	var win = window.openDialog("chrome://css_stealer/content/css_stealer.xul",  "css_stealer", "chrome,centerscreen", {ids: idArray, classes: classArray, elements: elementArray, rulesID: idRules, rulesClass: classRules, rulesElement: elementRules}); 
 }
 
+// Function will check or uncheck all items in the listbox depending on the input
 function selectAll(value) {
 	var item;
 	//check elements
@@ -165,218 +164,135 @@ function selectAll(value) {
 	}
 }
 
-
+// This function builds the data to be stored in the resulting files
 function steal()
 {
+  // if the preferences have not been set then alert the user and retun
+  if (false == checkDefaultPrefs())
+  {
+    alert("Please set your preferences.");
+    return;
+  }
+  
 	var data = "";
-	var stolenID = 1;
-    var multipleFiles = false;
-  
-	// Retrieve the File Path Preference setting
-	var filePath = getPath();
-  
-	if (filePath == "") {
-		alert("Error: Path not set.  No files generated.");
-		return;
-	}
-  
-	if (filePath.charAt(filePath.length-1) != '\\') {
-		filePath = filePath + "\\";
-	}
-    
+	var stolen = 0;
+  var multipleFiles = false;
+     
 	// Retrieve the Multiple Files Preference Setting
 	var multipleFiles = getMultipleFiles();
 
-	var item;
-	//check elements
+  // go through all of the elements and retrieve data for the ones that are selected
+	var item;  
 	var name = "elem";
 	var index = 0;
 	item = document.getElementById(name+index);	
+  
+  // while there are more elements to process
 	while (item != null) {
 		if (item.getAttribute("checked").length == 4) {
-			//alert(item.getAttribute("value"));
 			data = data + item.getAttribute("value") + "\n";
       
+      // if the user wants to generate multiple files, create a file for this element
 			if (multipleFiles == true) {
-				var fileName = filePath + "Stolen" + (stolenID).toString() + ".css";
+				var fileName = filePath + "Stolen" + (stolen + 1).toString() + ".css";
 				writeCSSToFile(item.getAttribute("value"), fileName);
-				++stolenID;
+				++stolen;
 			}
 		}
     
-		index++;
-		item = document.getElementById(name+index);
-	}
-	//check ids
-	index = 0;
-	name = "id";
-	item = document.getElementById(name+index);
-	while (item != null) {
-		if (item.getAttribute("checked").length == 4) {
-			//alert(item.getAttribute("value"));
-			data = data + item.getAttribute("value") + "\n";
-      
-			if (multipleFiles == true) {
-				var fileName = filePath + "Stolen" + (stolenID).toString() + ".css";
-				writeCSSToFile(item.getAttribute("value"), fileName);
-				++stolenID;
-			}      
-		}
-    
-		index++;
-		item = document.getElementById(name+index);
-	}
-	//check classes
-	index = 0;
-	name = "class";
-	item = document.getElementById(name+index);
-	while (item != null) {
-		if (item.getAttribute("checked").length == 4) {
-			//alert(item.getAttribute("value"));
-			data = data + item.getAttribute("value") + "\n";
-      
-			if (multipleFiles == true) {
-				var fileName = filePath + "Stolen" + (stolenID).toString() + ".css";
-				writeCSSToFile(item.getAttribute("value"), fileName);
-				++stolenID;
-			}      
-		}
-    
+    // get the next element
 		index++;
 		item = document.getElementById(name+index);
 	}
   
-	if (multipleFiles == false) {
-		var fileName = filePath + "Stolen.css";
-		writeCSSToFile(data, fileName);
+  // go through all of the IDs and retrieve data for the ones that are selected
+	index = 0;
+	name = "id";
+	item = document.getElementById(name+index);
+  
+  // while there are more IDs to process
+	while (item != null) {
+		if (item.getAttribute("checked").length == 4) {
+			data = data + item.getAttribute("value") + "\n";
+      
+      // if the user wants to generate multiple files, create a file for this ID
+			if (multipleFiles == true) {
+				var fileName = "Stolen" + (stolen + 1).toString() + ".css";
+				writeCSSToFile(item.getAttribute("value"), fileName);
+				++stolen;
+			}      
+		}
+    
+    // get the next ID
+		index++;
+		item = document.getElementById(name+index);
 	}
+  
+  // go through all of the classes and retrieve data for the ones that are selected
+	index = 0;
+	name = "class";
+	item = document.getElementById(name+index);
+  
+  // while there are more classes to process
+	while (item != null) {
+		if (item.getAttribute("checked").length == 4) {
+			data = data + item.getAttribute("value") + "\n";
+      
+      // if the user wants to generate multiple files, create a file for this class
+			if (multipleFiles == true) {
+				var fileName = "Stolen" + (stolen + 1).toString() + ".css";
+				writeCSSToFile(item.getAttribute("value"), fileName);
+				++stolen;
+			}      
+		}
+    
+     // get the next class
+		index++;
+		item = document.getElementById(name+index);
+	}
+
+  // if multiple files are not being written then write one file with all of the data
+	if (multipleFiles == false) {
+		var fileName = "Stolen.css";
+		writeCSSToFile(data, fileName);
+    ++stolen;
+	}
+
+  // inform the user how many files were written and to what location
+  if (stolen == 1)
+  {
+    alert("Saved " + (stolen).toString() + " file to " + getPath());
+  }
+  else
+  {
+    alert("Saved " + (stolen).toString() + " files to " + getPath());
+  }
 }
 
-function writeCSSToFile(data, filePath)
+// This function handles file writing of the CSS data
+function writeCSSToFile(data, fileName)
 {
+	// Retrieve the File Path Preference setting
+	var filePath = getPath();
+
+  // create a file using the path from the preferences and the supplied filename
 	var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-	var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
-                         .createInstance(Components.interfaces.nsIFileOutputStream);
 	file.initWithPath(filePath);
+	file.append(fileName)
+  
+  // create a output stream
+  var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+                         .createInstance(Components.interfaces.nsIFileOutputStream);
+
+  // if the file does not exist create it
 	if ( file.exists() == false ) {
 		file.create(file.NORMAL_FILE_TYPE, 0666);  
 	}
 
+  // write data to the file
 	foStream.init(file, 0x02 | 0x10| 0x20, 0666, 0);
 	foStream.write(data, data.length);
-	foStream.close();
-	alert("CSS was saved");
+	foStream.close(); 
 }
 
-function showPrefs() {	
-	var win = window.openDialog("chrome://css_stealer/content/prefs_window.xul",  "prefs_window", "chrome,centerscreen", {}); 
-}
 
-function setMult(stValue) {
-	try {
-		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
-		var saved = {};
-		var value = false;
-
-		if (stValue == 'true') value = true;
-		  
-		var result = obj.setMultipleFiles(value, saved);
-		if (result == true) {
-			if (value) {
-				alert("Generating multiple files.");
-			} else {
-				alert("Generating one file.");
-			}
-		} else {
-			alert("There was an error in the XPCOM component");
-		}
-	}
-	catch (e) { alert("there was an error/JS exception "+e); }
-}
-
-function choosePath() {
-	try {
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
-                   .createInstance(Components.interfaces.nsIFilePicker);
-		fp.init(this, "Choose folder", 2);
-		var result = fp.show();		
-		if (result == 0) {
-			var path = fp.file.path;			
-			var pathTextBox = document.getElementById("path");
-			pathTextBox.value = path;
-			savePath();
-		}
-		
-	} catch (e) { alert("there was an error/JS exception "+e); }
-}
-
-function savePath() {
-	try {
-		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
-		var pathTextBox = document.getElementById("path");
-		var path = pathTextBox.value;
-		
-		var saved = {};
-		  
-		var result = obj.setPath(path, saved);
-		if (result == true) {					
-			if (! saved.value) {
-				alert("The path does not exist, please choose a different path");				
-			}
-		} else {
-			alert("There was an error in the XPCOM component");
-		}
-	}
-	catch (e) { alert("there was an error/JS exception "+e); }
-}
-
-function checkDefaultPrefs() {
-	try {
-		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
-		var userDefined = {};
-		result = obj.getUserSet(userDefined);
-		if (result == true) {		
-			if (userDefined.value == false) alert("Please set the file path first in the Preferences window");
-		} else {
-			alert("There was an error in the XPCOM component");
-		}
-	} catch (e) { alert("there was an error/JS exception "+e); }
-}
-
-function getPath() {
-	var retVal = "";
-	try {
-		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
-    
-		var path = {};
-		
-		var result = obj.getPath(path);
-		
-		if (result == true) {		
-			retVal = path.value;
-		} else {
-			alert("There was an error in the XPCOM component");
-		}
-	}
-	catch (e) { alert("there was an error/JS exception "+e); }
-  return retVal;
-}
-
-function getMultipleFiles() {
-	var retVal = false;
-	try {
-		var obj = Components.classes["@mozilla.org/myprefs;1"].createInstance(Components.interfaces.nsIMyPrefs);
-    
-		var files = {};
-		  
-		var result = obj.getMultipleFiles(files);
-		if (result == true) {		
-			retVal = files.value;
-		} else {
-			alert("There was an error in the XPCOM component");
-		}
-	}
-	catch (e) { alert("there was an error/JS exception "+e); }
-  
-  return retVal;
-}
