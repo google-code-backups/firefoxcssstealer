@@ -46,7 +46,7 @@ The selectAll method will either check all of the items in the listbox or unchec
 
 = XUL =
 
-There are three XULfiles that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the JavasScript files.  This extension is installed as an Add-On to Firefox.
+There are three XUL files that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the JavasScript files.  This extension is installed as an Add-On to Firefox.
 
 === browserOverlay.xul ===
 
