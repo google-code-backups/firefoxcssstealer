@@ -2,7 +2,7 @@
 
 = C++ Component =
 
-There was one C++ component that was created, and one that had to be abadoned due to implementation issues.
+There was one C++ component that was created, and one that had to be abadoned due to implementation issues.  This component needs to be compiled and registered as a component of Firefox.
 
 === Preferences Component ===
 
@@ -14,7 +14,7 @@ This component was originally planned to also handle the retrieval of the CSS da
 
 = JavaScript =
 
-There are three JavaScript files that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the XUL files.
+There are three JavaScript files that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the XUL files.  This extension is installed as an Add-On to Firefox.
 
 === domListingFunctions.js ===
 
@@ -46,7 +46,7 @@ The selectAll method will either check all of the items in the listbox or unchec
 
 = XUL =
 
-There are three XULfiles that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the JavasScript files.
+There are three XULfiles that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the JavasScript files.  This extension is installed as an Add-On to Firefox.
 
 === browserOverlay.xul ===
 
