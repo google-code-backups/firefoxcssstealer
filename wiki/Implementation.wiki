@@ -47,3 +47,21 @@ The selectAll method will either check all of the items in the listbox or unchec
 = XUL =
 
 There are three XULfiles that perform the majority of the CSS Stealer's functions.  These files are included in the content directory of the XPI extension along with the JavasScript files.
+
+=== browserOverlay.xul ===
+
+This file creates an option in the tools menu that will start the CSS Stealer.
+
+This file uses methods from the css_stealer.js and domListingFunctions.js files.
+
+=== prefs_window.xul ===
+
+This file defines the dialog that the user uses to set preferences.  It has an uneditable textbox that displays the current file path, and a button that will popup the directoy selector.  It also has a drop down list for choosing how many files to generate.
+
+This file uses methods from the prefs_manager.js file.
+
+=== css_stealer.xul ===
+
+This file defines the main dialog window for the CSS Stealer extension.  It contains a listbox that has all of the available CSS rules, along with checkboxes so that they can be individually selected.  It also buttons to select all rules and deslect all rules. In addition, it has a button that will pop up the preferences dialog.  Most importantly, it has a button that steals the CSS rules selected. 
+
+This file uses methods from the css_stealer.js and prefs_manager.js files.
