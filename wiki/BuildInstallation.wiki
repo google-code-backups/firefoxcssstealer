@@ -8,7 +8,7 @@ The necessary files for a full installation can also be retrieved in a zip file 
 
 = Build =
 
-In order to use this extension, a firefox development build is necessary.  See http://developer.mozilla.org/en/Build_Documentation for details.  Once firefox has been downloaded and built follow the following steps.
+In order to use this extension, a Firefox development build is necessary.  See http://developer.mozilla.org/en/Build_Documentation for details.  Once Firefox has been downloaded and built, follow these steps.
 
  # Copy the myPrefs directory to the root directory of your Firefox source.
  # Open the toolkit-makefiles.sh file found in the toolkit directory.
