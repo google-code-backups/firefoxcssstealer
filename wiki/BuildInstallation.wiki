@@ -33,7 +33,7 @@ Once these steps have been completed, the component is ready to be used.
 
 = Install =
 
-Installing the component is easy.  
+Installing the extension is easy.  
 
  # Open Firefox
  # Go to File->Open.
