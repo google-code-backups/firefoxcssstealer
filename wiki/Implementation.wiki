@@ -6,7 +6,7 @@ There was one C++ component that was created, and one that had to be abadoned du
 
 === Preferences Component ===
 
-The C++ Component is used for managing preferences.  This component uses the nsIPrefsService to store two preferences the folder path and whether to generate multiple files.  The nsiPrefsService ensures that these preferences persist through multiple runs of the extension.  They can be viewed through Firefox's about:config command.  The interface with this component is handled through prefs_manager.js.
+The C++ Component is used for managing preferences.  This component uses the nsIPrefsService to store two preferences, the folder path and whether to generate multiple files.  The nsiPrefsService ensures that these preferences persist through multiple runs of the extension.  They can be viewed through Firefox's about:config command.  The interface with this component is handled through prefs_manager.js.
 
 === Failed CSS Stealer Component ===
 
