@@ -62,6 +62,6 @@ This file uses methods from the prefs_manager.js file.
 
 === css_stealer.xul ===
 
-This file defines the main dialog window for the CSS Stealer extension.  It contains a listbox that has all of the available CSS rules, along with checkboxes so that they can be individually selected.  It also buttons to select all rules and deslect all rules. In addition, it has a button that will pop up the preferences dialog.  Most importantly, it has a button that steals the CSS rules selected. 
+This file defines the main dialog window for the CSS Stealer extension.  It contains a listbox that has all of the available CSS rules, along with checkboxes so that they can be individually selected.  It also has buttons to select all rules and deselect all rules. In addition, it has a button that will pop up the preferences dialog.  Most importantly, it has a Steal button that steals the CSS rules selected. 
 
 This file uses methods from the css_stealer.js and prefs_manager.js files.
