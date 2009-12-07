@@ -2,12 +2,16 @@
 
 = Download =
 
-Add your content here.
+The entire source can be retrieved from the SVN.  The main branch is the only branch that is stable and ready for release.  The other branches are used for prototyping, and will not have full functionality.
 
+The necessary files for a full installation can also be retrieved from the Downloads section.
 
 = Build =
 
-Add your content here.
+In order to use this extension, a firefox development build is necessary.  See http://developer.mozilla.org/en/Build_Documentation for details.  Once firefox has been downloaded and built follow the following steps.
+
+#1. Copy the myPrefs directory to the root directory of your Firefox source.
+#2. 
 
 = Install =
 
