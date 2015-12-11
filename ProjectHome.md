@@ -1,0 +1,8 @@
+# CSS Stealer Extension for Firefox #
+
+> Have you ever admired the layout, style, or html element design of a particular website?  Have you ever wanted to learn to design, develop, and style html web-pages like the pro's do?  Well now, the secrets that make web interfaces so appealing and downright cool to the user are unleashed for you with the click of a button!
+
+> The **CSS Stealer** is an open source project whose main goal is promoting the growth of styling html with the W3C standard CSS language, by providing novice, intermediate, and expert web-developers a quick and easy interface for mastering CSS Stylesheets.  To use the product, simply browse to a cool website with element(s) that you would like to reproduce, and click the **CSS Stealer** menu button.  Locate the element you would like to steal using the pop-up DOM guide and check the appropriate options.  Click steal, and the rules that apply to the selected elements, classes, and id's will be saved to your hard drive.  All that's left to do is reference the Stylesheets in your web-project, and enjoy your newly styled web-page.
+
+## Contributors ##
+> This project is written as an extension for the Mozilla Firefox web-browser, and requires that component code be compiled as a part of Firefox.  Follow the instructions on the [Build Instructions](BuildInstallation.md) wiki to build the component, and contact the project owners if any assistance is required.
